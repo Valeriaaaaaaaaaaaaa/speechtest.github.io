@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Анкета для родителей детей 1-7 лет</title>
+    <style>
+        body { 
+            font-family: 'Arial', sans-serif; 
+            background-color: #f8f9fa; /* Светлый фон */
+            color: #212529; /* Основной цвет текста */
+            margin: 0; 
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container { 
+            background-color: #ffffff; /* Белый цвет контейнера */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 1); 
+            padding: 20px; 
+            border-radius: 8px; 
+            width: 80%; 
+            max-width: 600px;
+            text-align: center;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 80vh;
+        }
+        h1, h2 {
+            font-size: 24px;
+            color: #28a745; /* Зеленый цвет заголовков */
+        }
+        p, label {
+            font-size: 16px;
+            margin: 15px 0;
+        }
+        input[type="date"], input[type="checkbox"], input[type="radio"] {
+            margin-bottom: 20px;
+        }
+        button {
+            background-color: #28a745; /* Зеленый цвет кнопок */
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #218838; /* Более темный зеленый при наведении */
+        }
+        .hidden { 
+            display: none !important; 
+        }
+        .checkbox-label {
+            display: block;
+            text-align: left;
+        }
+        .btn-next {
+            align-self: flex-end;
+        }
+        .btn-back {
+            align-self: flex-start;
+        }
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
+    .checkbox-label {
+        display: flex;
+        align-items: center;
+        gap: 10px; /* Интервал между чекбоксом и текстом */
+    }
+    .button-container {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+    }
+    .btn-back {
+        align-self: flex-start;
+    }
+    .btn-next {
+        align-self: flex-end;
+    }
+     </style>
+</head> 
+<body>
+    <!-- Страница 1 -->
+    <div id="page1" class="container">
+        <h1>АНКЕТА ДЛЯ РОДИТЕЛЕЙ ДЕТЕЙ 1-7 лет</h1>
+        <p>Уважаемые родители! Эта анкета поможет вам определить, есть ли проблемы с речью у вашего ребенка, и составить «программу первых шагов» для их решения.</p>
+        <label for="surveyDate">Дата анкетирования:</label>
+        <input type="date" id="surveyDate">
+        <div class="button-container">
+            <button class="btn-next" onclick="goToPage(2)">Далее</button>
+        </div>
+    </div>
+
+    <!-- Страница 2 -->
+    <div id="page2" class="container hidden">
+        <label for="birthDate">Введите дату рождения ребёнка:</label>
+        <input type="date" id="birthDate">
+        <div class="button-container">
+            <button class="btn-back" onclick="goBackToPage()">Назад</button>
+            <button class="btn-next" onclick="if (validateBirthDate()) goToPage(3);">Далее</button>
+        </div>
+    </div>
+
+    <!-- Страница 3 -->
+    <div id="page3" class="container hidden">
+        <h2>Ребенок реагирует на звуки?</h2>
+        <label><input type="radio" name="reactsToSounds" value="yes"> ДА</label><br>
+        <label><input type="radio" name="reactsToSounds" value="no"> НЕТ</label><br>
+        <div class="button-container">
+            <button class="btn-back" onclick="goBackToPage()">Назад</button>
+            <button class="btn-next" onclick="handleReactsToSounds();">Далее</button>
+        </div>
+    </div>
+
+    <!-- Страница 4 -->
+    <div id="page4" class="container hidden">
+        <h2>Ребенок реагирует на шепот и тихие звуки?</h2>
+        <label><input type="radio" name="whisperReaction" value="yes"> ДА</label><br>
+        <label><input type="radio" name="whisperReaction" value="no"> НЕТ</label><br>
+        <div class="button-container">
+            <button class="btn-back" onclick="goBackToPage()">Назад</button>
+            <button class="btn-next" onclick="handleWhisperReaction();">Далее</button>
+        </div>
+    </div>
+
+    <!-- Страница 5 -->
+    <div id="page5" class="container hidden">
+        <h2>Реагирует только на громкие звуки?</h2>
+        <label><input type="radio" name="loudReaction" value="yes"> ДА</label><br>
+        <label><input type="radio" name="loudReaction" value="no"> НЕТ</label><br>
+        <div class="button-container">
+            <button class="btn-back" onclick="goBackToPage()">Назад</button>
+            <button class="btn-next" onclick="handleLoudReaction();">Далее</button>
+        </div>
+    </div>
+
+    <!-- Страница 6 -->
+    <div id="page6" class="container hidden">
+        <h2>Реагирует на голос, откликается на имя?</h2>
+        <label><input type="radio" name="nameReaction" value="yes"> ЧАЩЕ ДА</label><br>
+        <label><input type="radio" name="nameReaction" value="no"> ЧАЩЕ НЕТ</label><br>
+        <div class="button-container">
+            <button class="btn-back" onclick="goBackToPage()">Назад</button>
+            <button class="btn-next" onclick="handleNameReaction();">Далее</button>
+        </div>
+    </div>
+
+    <!-- Страница 7 -->
+    <div id="page7" class="container hidden">
+        <h2>Ребенок использует указательный жест?</h2>
+        <label><input type="radio" name="pointingGesture" value="yes"> ДА</label><br>
+        <label><input type="radio" name="pointingGesture" value="no"> НЕТ</label><br>
+        <div class="button-container">
+            <button class="btn-back" onclick="goBackToPage()">Назад</button>
+            <button class="btn-next" onclick="handlePointingGesture();">Далее</button>
+        </div>
+    </div>
+
+    <!-- Страница 8 -->
+    <div id="page8" class="container hidden">
+        <h2>Оценка уровня развития речи</h2>
+        <p>Ответы на следующие вопросы позволят оценить уровень развития речи Вашего ребенка:</p>
+        <div id="page8Questions">
+            <label class="checkbox-label"><input type="checkbox" data-age="1"> Реакция сосредоточения на речевое общение с ребенком.</label>
+            <label class="checkbox-label"><input type="checkbox" data-age="2"> Улыбка при общении.</label>
+            <label class="checkbox-label"><input type="checkbox" data-age="3"> Комплекс оживления при общении со взрослым, гуление.</label>
+            <label class="checkbox-label"><input type="checkbox" data-age="4"> Дифференцированность комплекса оживления, смех.</label>
+            <label class="checkbox-label"><input type="checkbox" data-age="5"> Дифференциация направления звука, певучее гуление.</label>
+            <label class="checkbox-label"><input type="checkbox" data-age="6"> Лепет.</label>
+            <label class="checkbox-label"><input type="checkbox" data-age="7"> Готовность к совместной игровой деятельности, ориентация на колокольчик – вызванная реакция.</label>
+            <label class="checkbox-label"><input type="checkbox" data-age="8"> Реакция на незнакомое лицо, повторение одинаковых слогов ба-ба и т.п.</label>
+            <label class="checkbox-label"><input type="checkbox" data-age="9"> Общение с помощью жестов, игра в «ладушки».</label>
+            <label class="checkbox-label"><input type="checkbox" data-age="10"> Ситуационное понимание обращенной речи, предметно-действенное общение со взрослым, использование 1 - 2 «лепетных слов», понятных при соотнесении с ситуацией.</label>
+            <label class="checkbox-label"><input type="checkbox" data-age="11"> Использование 3 «лепетных слов» с соотнесением.</label>
+            <label class="checkbox-label"><input type="checkbox" data-age="12"> Использование 3 - 4 «лепетных слов» с соотнесением; понимание простой инструкции, дополняемой жестом.</label>
+            <label class="checkbox-label"><input type="checkbox" data-age="15"> Словарный запас увеличивается до 6 слов, ребенок понимает простую инструкцию без жеста.</label>
+            <label class="checkbox-label"><input type="checkbox" data-age="18"> Показывает одну из частей тела, словарный запас 7 – 20 слов.</label>
+            <label class="checkbox-label"><input type="checkbox" data-age="21"> Показывает три части тела, использует фразу из 2 слов, словарный запас – 20 слов.</label>
+            <label class="checkbox-label"><input type="checkbox" data-age="24"> Показывает 5 частей тела, имеет словарный запас минимум 50 слов; неадекватно использует местоимения я, ты, мне; предложения строит из двух слов.</label>
+            <label class="checkbox-label"><input type="checkbox" data-age="30"> Адекватно использует местоимения я, ты, мне; повторяет две цифры в правильной последовательности, имеет понятие «один».</label>
+            <label class="checkbox-label"><input type="checkbox" data-age="36"> Словарный запас не менее 250 слов, использует предложение из 3 слов, овладел множественным числом существительных и глаголов. Ребенок называет свое имя, пол, возраст, понимает значение простых предлогов; выполняет задания типа «положи кубик под чашку», «положи кубик в коробку».</label>
+            <label class="checkbox-label"><input type="checkbox" data-age="48"> Умение строить предложения из 4-5 слов. Проговаривание большинства звуков правильно, хотя некоторые звуки могут все еще вызывать трудности.</label>
+            <label class="checkbox-label"><input type="checkbox" data-age="60"> Умение строить предложения из 5-6 слов и более. Развитие способности рассказывать истории, участие в разговоре и следование теме разговора. Улучшение произношения звуков, почти все звуки должны быть сформированы и произноситься правильно.</label>
+            <label class="checkbox-label"><input type="checkbox" data-age="72"> Умение строить сложные предложения, сочетая идеи с помощью союзов (и, или, потому что). Улучшение произношения звуков и умение правильно произносить все звуки родного языка.</label>
+            <label class="checkbox-label"><input type="checkbox" data-age="84"> Речь связная и развернутая. Правильно строит предложения с точки зрения грамматики. Звукопроизношение должно быть правильным.</label>
+        </div>
+    <div class="button-container">
+	<button class="btn-back" onclick="goBackToPage()">Назад</button> 
+	<button class="btn-next" onclick="goToPage(9)">Далее</button> </div> </div>
+    </div>
+</div>
+
+    <!-- Страница 9 -->
+    <div id="page9" class="container hidden">
+        <h2>Оценка уровня развития речи</h2>
+        <p>Ответы на следующие вопросы позволят оценить уровень развития речи Вашего ребенка:</p>
+        <div id="page9Questions">
+            <label class="checkbox-label"><input type="checkbox" data-age="3"> Ребенок прислушивается к голосу взрослого, адекватно реагирует на интонацию, узнает знакомые голоса.</label>
+            <label class="checkbox-label"><input type="checkbox" data-age="7"> Ребенок понимает отдельные инструкции и подчиняется некоторым словесным командам («поцелуй маму», «где папа?», «дай ручку», «нельзя» и т.д.).</label>
+            <label class="checkbox-label"><input type="checkbox" data-age="11"> Ребенок понимает названия отдельных предметов.</label>
+            <label class="checkbox-label"><input type="checkbox" data-age="12"> Понимание простой инструкции, дополняемой жестом.</label>
+            <label class="checkbox-label"><input type="checkbox" data-age="15"> Узнает изображения отдельных предметов.</label>
+            <label class="checkbox-label"><input type="checkbox" data-age="18"> Узнает изображения отдельных предметов на сюжетных картинках.</label>
+            <label class="checkbox-label"><input type="checkbox" data-age="24"> Ребенок понимает двухступенчатую инструкцию.</label>
+            <label class="checkbox-label"><input type="checkbox" data-age="30"> Ребенок понимает обозначения действий в различных ситуациях («покажи, кто сидит, кто спит»); двухступенчатую инструкцию («Пойди в кухню и принеси чашку»); значение предлогов в привычной конкретной ситуации («на чем ты сидишь?»). Ребенку доступно установление причинно-следственных связей.</label>
+            <label class="checkbox-label"><input type="checkbox" data-age="36"> Ребенок понимает прочитанные короткие рассказы и сказки со зрительной опорой и без нее.</label>
+            <label class="checkbox-label"><input type="checkbox" data-age="48"> Восприятие и понимание простых вопросов и многоступенчатых инструкций.</label>
+            <label class="checkbox-label"><input type="checkbox" data-age="60"> Понимание и выполнение сложных инструкций и вопросов.</label>
+            <label class="checkbox-label"><input type="checkbox" data-age="72"> Умение понимать и использовать сравнения, противопоставления и причинно-следственные связи.</label>
+            <label class="checkbox-label"><input type="checkbox" data-age="84"> Умение понимать и обсуждать абстрактные идеи и эмоции. Усиление навыков анализа и интерпретации информации.</label>
+        </div>
+        <div class="button-container">
+            <button class="btn-back" onclick="goBackToPage()">Назад</button>
+            <button class="btn-next" onclick="goToPage(10)">Далее</button>
+        </div>
+    </div>
+
+    <!-- Страница 10 -->
+<div id="page10" class="container hidden">
+    <h2>Есть жалобы на развитие речи ребенка?</h2>
+    <label><input type="radio" name="complaints" value="yes"> ДА</label><br>
+    <label><input type="radio" name="complaints" value="no"> НЕТ</label><br>
+    <div class="button-container">
+        <button class="btn-back" onclick="goBackToPage()">Назад</button>
+        <button class="btn-next" onclick="handleComplaints()">Далее</button>
+    </div>
+</div>
+
+<!-- Страница 11 -->
+<div id="page11" class="container hidden">
+    <h2>Ребёнок плохо понимает обращенную речь?</h2>
+    <label><input type="radio" name="understanding" value="yes"> ДА</label><br>
+    <label><input type="radio" name="understanding" value="no"> НЕТ</label><br>
+    <div class="button-container">
+        <button class="btn-back" onclick="goBackToPage()">Назад</button>
+        <button class="btn-next" onclick="handleUnderstanding()">Далее</button>
+    </div>
+</div>
+
+<!-- Страница 12 -->
+<div id="page12" class="container hidden">
+    <h2>Есть ли нарушения активной речи? (скудный словарный запас, трудности с составлением предложений, аграмматизмы в речи)</h2>
+    <label><input type="radio" name="activeSpeechIssues" value="yes"> ДА</label><br>
+    <label><input type="radio" name="activeSpeechIssues" value="no"> НЕТ</label><br>
+    <div class="button-container">
+        <button class="btn-back" onclick="goBackToPage()">Назад</button>
+        <button class="btn-next" onclick="handleActiveSpeechIssues()">Далее</button>
+    </div>
+</div>
+
+<!-- Страница 13 -->
+<div id="page13" class="container hidden">
+    <h2>Есть ли нарушение произношения, неразборчивая, невнятная речь?</h2>
+    <label><input type="radio" name="pronunciationIssues" value="yes"> ДА</label><br>
+    <label><input type="radio" name="pronunciationIssues" value="no"> НЕТ</label><br>
+    <div class="button-container">
+        <button class="btn-back" onclick="goBackToPage()">Назад</button>
+        <button class="btn-next" onclick="handlePronunciationIssues()">Далее</button>
+    </div>
+</div>
+
+<!-- Страница 14 -->
+<div id="page14" class="container hidden">
+    <h2>Есть ли нарушение голоса (гнусавость, осиплость, хриплый голос)?</h2>
+    <label><input type="radio" name="voiceIssues" value="yes"> ДА</label><br>
+    <label><input type="radio" name="voiceIssues" value="no"> НЕТ</label><br>
+    <div class="button-container">
+        <button class="btn-back" onclick="goBackToPage()">Назад</button>
+        <button class="btn-next" onclick="handleVoiceIssues()">Далее</button>
+    </div>
+</div>
+
+<!-- Страница 15 -->
+<div id="page15" class="container hidden">
+    <h2>Есть ли заикание, запинки в речи?</h2>
+    <label><input type="radio" name="stuttering" value="yes"> ДА</label><br>
+    <label><input type="radio" name="stuttering" value="no"> НЕТ</label><br>
+    <div class="button-container">
+        <button class="btn-back" onclick="goBackToPage()">Назад</button>
+        <button class="btn-next" onclick="handleStuttering()">Далее</button>
+    </div>
+</div>
+
+<!-- Страница 16 -->
+<div id="page17" class="container hidden">
+    <h2>Обращались ли вы к логопеду с ребёнком?</h2>
+    <label><input type="radio" name="speechTherapist" value="yes"> ДА</label><br>
+    <label><input type="radio" name="speechTherapist" value="no"> НЕТ</label><br>
+    <div class="button-container">
+        <button class="btn-back" onclick="goBackToPage()">Назад</button>
+        <button class="btn-next" onclick="handleSpeechTherapist()">Далее</button>
+    </div>
+</div>
+
+<!-- Страница 17 -->
+<div id="page18" class="container hidden">
+    <h2>Ребенок занимается с логопедом в настоящее время?</h2>
+    <label><input type="radio" name="currentSpeechTherapy" value="yes"> ДА</label><br>
+    <label><input type="radio" name="currentSpeechTherapy" value="no"> НЕТ</label><br>
+    <div class="button-container">
+        <button class="btn-back" onclick="goBackToPage()">Назад</button>
+        <button class="btn-next" onclick="handleCurrentSpeechTherapy()">Далее</button>
+    </div>
+</div>
+
+<!-- Страница 18 -->
+<div id="page19" class="container hidden">
+    <h2>Отмечаются ли улучшения в развитии речи?</h2>
+    <label><input type="radio" name="speechImprovement" value="yes"> ДА, УЛУЧШЕНИЯ ЕСТЬ</label><br>
+    <label><input type="radio" name="speechImprovement" value="slight"> УЛУЧШЕНИЯ ЕСТЬ, НО НЕЗНАЧИТЕЛЬНЫЕ</label><br>
+    <label><input type="radio" name="speechImprovement" value="no"> НЕТ УЛУЧШЕНИЯ</label><br>
+    <div class="button-container">
+        <button class="btn-back" onclick="goBackToPage()">Назад</button>
+        <button class="btn-next" onclick="handleSpeechImprovement()">Далее</button>
+    </div>
+</div>
+
+    <!-- Страница 19 -->
+    <div id="page20" class="container hidden">
+    <h2>В целом, как Вы оцениваете коммуникативные функции речи вашего ребенка (в соответствии с возрастом)?</h2>
+    <label class="small-font"><input type="radio" name="communication" value="1"> Эффективно обменивается информацией, как с членами семьи, так и с посторонними.</label>
+    <label class="small-font"><input type="radio" name="communication" value="2"> Эффективно обменивается информацией, как с членами семьи, так и с посторонними, но при общении отмечаются некоторые затруднения.</label>
+    <label class="small-font"><input type="radio" name="communication" value="3"> Эффективно обменивается информацией только с членами семьи.</label>
+    <label class="small-font"><input type="radio" name="communication" value="4"> Затруднения и недостаточная эффективность обмена информацией даже с членами семьи.</label>
+    <label class="small-font"><input type="radio" name="communication" value="5"> Невозможен обмен информацией, как с членами семьи, так и с посторонними.</label>
+    <div class="button-container">
+        <button class="btn-back" onclick="goBackToPage()">Назад</button>
+        <button class="btn-next" onclick="calculateResults();">Далее</button>
+    </div>
+</div>
+
+    <!-- Страница 20 -->
+<div id="page25" class="container hidden">
+    <h2>Рекомендации</h2>
+    <div id="conclusion"></div>
+    <div class="button-container">
+        <button class="btn-back" onclick="goToPage(20)">Назад</button>
+        <button class="btn-next" onclick="resetForm()">Повторить тестирование</button>
+    </div>
+</div>
+
+<script>
+
+let answers = {
+    page8: [],
+    page9: [],
+    communication: '',
+    complaints: '',
+    understanding: '',
+    reactsToSounds: '',
+    hearingIssue: '',
+    autismRisk: '',
+    activeSpeechIssues: '',
+    pronunciationIssues: '',
+    voiceIssues: '',
+    stuttering: '',
+    otherSpeechIssues: '',
+    speechTherapist: '',
+    currentSpeechTherapy: '',
+    improvements: '',
+    whisperReaction: '',
+    loudReaction: '',
+    pointingGesture: ''
+};
+
+let pageHistory = [];
+
+
+function goToPage(pageNumber, addToHistory = true) {
+    if (addToHistory && (pageHistory.length === 0 || pageHistory[pageHistory.length - 1] !== pageNumber)) {
+        pageHistory.push(pageNumber);
+    }
+    console.log('Navigating to page:', pageNumber);
+    console.log('Current pageHistory:', JSON.stringify(pageHistory));
+    let pages = document.querySelectorAll('.container');
+    pages.forEach(page => page.classList.add('hidden'));
+    let currentPage = document.getElementById('page' + pageNumber);
+    if (currentPage) currentPage.classList.remove('hidden');
+}
+
+
+function goBackToPage() {
+    console.log('Before pop:', JSON.stringify(pageHistory));
+    if (pageHistory.length > 1) {
+        pageHistory.pop(); // Убираем текущую страницу
+        let lastPage = pageHistory[pageHistory.length - 1]; // Предыдущая страница
+        console.log('Navigating back to page:', lastPage);
+        let pages = document.querySelectorAll('.container');
+        pages.forEach(page => page.classList.add('hidden'));
+        let currentPage = document.getElementById('page' + lastPage);
+        if (currentPage) currentPage.classList.remove('hidden');
+    } else {
+        console.log("No previous page in history");
+    }
+    console.log('After pop:', JSON.stringify(pageHistory));
+}
+
+
+function validateBirthDate() {
+    const birthDateInput = document.getElementById('birthDate').value;
+    if (!birthDateInput) {
+        alert('Дата рождения ребенка не заполнена. Пожалуйста, заполните её.');
+        return false;
+    }
+    const birthDate = new Date(birthDateInput);
+    const today = new Date();
+
+    // Вычисление возраста в месяцах
+    let ageInMonths = (today.getFullYear() - birthDate.getFullYear()) * 12 + today.getMonth() - birthDate.getMonth();
+
+    // Учитываем дни для более точного вычисления возраста
+    if (today.getDate() < birthDate.getDate()) {
+        ageInMonths--;
+    }
+
+    if (ageInMonths < 12 || ageInMonths > 84) {
+        alert('Возраст ребенка не соответствует диапазону анкетирования.');
+        return false;
+    }
+
+    showRelevantQuestions('page8Questions', 'page8', ageInMonths);
+    showRelevantQuestions('page9Questions', 'page9', ageInMonths);
+    return true;
+}
+
+function showRelevantQuestions(containerId, pageId, ageInMonths) {
+    const container = document.getElementById(containerId);
+    const checkboxes = document.querySelectorAll(`#${pageId} .checkbox-label input[type="checkbox"]`);
+    let stepMap = [];
+    checkboxes.forEach((checkbox, index) => {
+        stepMap.push({
+            age: parseInt(checkbox.getAttribute('data-age')),
+            element: checkbox.parentElement,
+            index: index
+        });
+    });
+    let closestIndex = findClosestIndex(stepMap, ageInMonths);
+    container.innerHTML = '';
+    for (let i = closestIndex - 4; i <= closestIndex + 1; i++) {
+        if (i >= 0 && i < stepMap.length) {
+            container.appendChild(stepMap[i].element);
+        }
+    }
+}
+
+function findClosestIndex(stepMap, age) {
+    let closestIndex = -1;
+    let minDifference = Infinity;
+    stepMap.forEach((step, index) => {
+        let difference = Math.abs(step.age - age);
+        if (difference < minDifference) {
+            minDifference = difference;
+            closestIndex = index;
+        }
+    });
+    return closestIndex;
+}
+
+
+function handleReactsToSounds() {
+    const reactsToSounds = document.querySelector('input[name="reactsToSounds"]:checked')?.value;
+    console.log("Reacts to Sounds:", reactsToSounds); // Логирование значения
+    if (reactsToSounds === 'no') {
+        answers.reactsToSounds = "Необходимо проверить слух. Нужна консультация сурдолога.";
+        document.getElementById('conclusion').innerHTML = answers.reactsToSounds;
+        goToPage(6);
+    } else {
+        goToPage(4);
+    }
+    console.log("Answers after Reacts to Sounds:", answers); // Логирование объекта answers
+}
+
+
+function handleWhisperReaction() {
+    const whisperReaction = document.querySelector('input[name="whisperReaction"]:checked').value;
+    console.log("Whisper Reaction:", whisperReaction); // Логирование значения
+    if (whisperReaction === 'yes') {
+        goToPage(6);
+    } else {
+        answers.whisperReaction = "Необходимо проверить слух. Нужна консультация сурдолога.";
+        goToPage(5);
+    }
+    console.log("Answers after Whisper Reaction:", answers); // Логирование объекта answers
+}
+
+function handleLoudReaction() {
+    const loudReaction = document.querySelector('input[name="loudReaction"]:checked').value;
+    if (loudReaction === 'yes') {
+        answers.loudReaction = "Необходимо проверить слух. Нужна консультация сурдолога.";
+        goToPage(6);
+    } else {
+        goToPage(6);
+    }
+}
+
+function handleNameReaction() {
+    const nameReaction = document.querySelector('input[name="nameReaction"]:checked')?.value;
+    const birthDateInput = document.getElementById('birthDate').value;
+
+    if (!birthDateInput) {
+        alert('Дата рождения ребенка не заполнена. Пожалуйста, заполните её.');
+        return;
+    }
+
+    const birthDate = new Date(birthDateInput);
+    const today = new Date();
+    let ageInMonths = (today.getFullYear() - birthDate.getFullYear()) * 12 + today.getMonth() - birthDate.getMonth();
+    if (today.getDate() < birthDate.getDate()) {
+        ageInMonths--;
+    }
+
+    if (nameReaction === 'yes' || ageInMonths < 18) {
+        goToPage(8);
+    } else {
+        goToPage(7);
+    }
+}
+
+function handlePointingGesture() {
+    const pointingGesture = document.querySelector('input[name="pointingGesture"]:checked').value;
+    if (pointingGesture === 'yes') {
+        goToPage(8);
+    } else {
+        answers.pointingGesture = "Рекомендуем пройти онлайн-версию опросника M-CHAT-R, который позволяет определить риск аутизма у ребенка. <a href='https://test.autism.help/' target='_blank'>https://test.autism.help/</a>";
+        goToPage(8);
+    }
+}
+
+
+function handleComplaints() {
+    const complaints = document.querySelector('input[name="complaints"]:checked')?.value;
+    console.log("Complaints:", complaints); // Логирование значения complaints
+    if (complaints === 'yes') {
+        answers.complaints = "Есть жалобы на развитие речи ребенка.";
+        goToPage(11);
+    } else {
+        answers.complaints = "no"; // Устанавливаем "no" для отсутствия жалоб
+        goToPage(20);
+    }
+    console.log("Answers after Complaints:", answers); // Логирование объекта answers
+}
+
+function handleUnderstanding() {
+    const understanding = document.querySelector('input[name="understanding"]:checked');
+    if (understanding) {
+        answers.understanding = understanding.value;
+        console.log("Understanding selected:", answers.understanding); // Логирование выбранного ответа
+    } else {
+        console.log("No answer selected for Understanding");
+    }
+    console.log("Answers after Understanding:", answers); // Логирование объекта answers
+    goToPage(12); // Переход к следующей странице
+}
+
+function handleActiveSpeechIssues() {
+    const activeSpeechIssues = document.querySelector('input[name="activeSpeechIssues"]:checked');
+    if (activeSpeechIssues) {
+        answers.activeSpeechIssues = activeSpeechIssues.value;
+        console.log("Active Speech Issues selected:", answers.activeSpeechIssues); // Логирование выбранного ответа
+    } else {
+        console.log("No answer selected for Active Speech Issues");
+    }
+    console.log("Answers after Active Speech Issues:", answers); // Логирование объекта answers
+    goToPage(13); // Переход к следующей странице
+}
+
+
+function handlePronunciationIssues() {
+    const pronunciationIssues = document.querySelector('input[name="pronunciationIssues"]:checked');
+    if (pronunciationIssues) {
+        answers.pronunciationIssues = pronunciationIssues.value;
+        console.log("Pronunciation Issues selected:", answers.pronunciationIssues); // Логирование выбранного ответа
+    } else {
+        console.log("No answer selected for Pronunciation Issues");
+    }
+    console.log("Answers after Pronunciation Issues:", answers); // Логирование объекта answers
+    goToPage(14); // Переход к следующей странице
+}
+
+function handleVoiceIssues() {
+    const voiceIssues = document.querySelector('input[name="voiceIssues"]:checked');
+    if (voiceIssues) {
+        answers.voiceIssues = voiceIssues.value;
+        console.log("Voice Issues selected:", answers.voiceIssues); // Логирование выбранного ответа
+    } else {
+        console.log("No answer selected for Voice Issues");
+    }
+    console.log("Answers after Voice Issues:", answers); // Логирование объекта answers
+    goToPage(15); // Переход к следующей странице
+}
+
+function handleStuttering() {
+    const stuttering = document.querySelector('input[name="stuttering"]:checked');
+    if (stuttering) {
+        answers.stuttering = stuttering.value;
+        console.log("Stuttering selected:", answers.stuttering); // Логирование выбранного ответа
+    } else {
+        console.log("No answer selected for Stuttering");
+    }
+    console.log("Answers after Stuttering:", answers); // Логирование объекта answers
+    goToPage(17); // Переход к следующей странице
+}
+
+
+function handleSpeechTherapist() {
+    const speechTherapist = document.querySelector('input[name="speechTherapist"]:checked');
+    answers.speechTherapist = speechTherapist.value;
+
+    if (speechTherapist.value === 'yes') {  // Используем speechTherapist.value
+        goToPage(18);
+    } else {
+        goToPage(20);
+    }
+}
+
+function handleCurrentSpeechTherapy() {
+    const currentSpeechTherapy = document.querySelector('input[name="currentSpeechTherapy"]:checked')?.value;
+    console.log("Current Speech Therapy:", currentSpeechTherapy); // Логирование значения
+    answers.currentSpeechTherapy = currentSpeechTherapy; // Сохранение значения в answers
+    console.log("answers object after handleCurrentSpeechTherapy:", answers);
+    if (currentSpeechTherapy === 'yes') {
+        goToPage(19);
+    } else {
+        goToPage(20);
+    }
+}
+
+
+function handleSpeechImprovement() {
+    const speechImprovement = document.querySelector('input[name="speechImprovement"]:checked')?.value;
+    console.log("Speech Improvement:", speechImprovement); // Логирование значения
+    answers.improvements = speechImprovement; // Сохранение значения в answers
+    console.log("answers object after handleSpeechImprovement:", answers);
+    goToPage(20);
+}
+
+
+
+function handleQuestions() {
+    handleUnderstanding(); // Вопрос 11
+    handleActiveSpeechIssues(); // Вопрос 12
+    handlePronunciationIssues(); // Вопрос 13
+    handleVoiceIssues(); // Вопрос 14
+    handleStuttering(); // Вопрос 15
+    console.log("answers object after handling questions:", answers);
+}
+
+function calculateResults() {
+    console.log("Entering calculateResults"); // Логирование начала функции
+
+    const birthDate = new Date(document.getElementById('birthDate').value);
+    const today = new Date();
+    const ageInMonths = (today.getFullYear() - birthDate.getFullYear()) * 12 + today.getMonth() - birthDate.getMonth();
+
+    const page8Checks = document.querySelectorAll('#page8Questions input[type="checkbox"]');
+    const page9Checks = document.querySelectorAll('#page9Questions input[type="checkbox"]');
+    const communication = document.querySelector('input[name="communication"]:checked')?.value;
+
+    answers.page8 = [];
+    answers.page9 = [];
+    answers.communication = communication;
+
+    let stepMapPage8 = [];
+    let stepMapPage9 = [];
+
+    page8Checks.forEach((checkbox, index) => {
+        stepMapPage8.push({
+            age: parseInt(checkbox.getAttribute('data-age')),
+            index: index + 1,
+            checked: checkbox.checked
+        });
+    });
+
+    page9Checks.forEach((checkbox, index) => {
+        stepMapPage9.push({
+            age: parseInt(checkbox.getAttribute('data-age')),
+            index: index + 1,
+            checked: checkbox.checked
+        });
+    });
+
+    console.log("Step map Page 8:", stepMapPage8);
+    console.log("Step map Page 9:", stepMapPage9);
+    console.log("Child's age in months:", ageInMonths);
+
+    let stepDifferencePage8 = calculateStepDifference(stepMapPage8, ageInMonths);
+    let stepDifferencePage9 = calculateStepDifference(stepMapPage9, ageInMonths);
+
+    console.log("Step Difference Page 8:", stepDifferencePage8);
+    console.log("Step Difference Page 9:", stepDifferencePage9);
+    
+    console.log("Communication:", communication);
+    console.log("Age in Months:", ageInMonths);
+    console.log("Current Speech Therapy (start):", answers.currentSpeechTherapy);
+    console.log("Improvements (start):", answers.improvements);
+    console.log("Page 20 Answer (start):", answers.communication);
+
+    // Обработка вопросов 11-16 без добавления в историю
+    handleUnderstanding();
+    handleActiveSpeechIssues();
+    handlePronunciationIssues();
+    handleVoiceIssues();
+    handleStuttering();
+
+    const currentSpeechTherapy = answers.currentSpeechTherapy;
+    const improvements = answers.improvements;
+    const page20Answer = answers.communication;
+
+    console.log("Current Speech Therapy (end):", currentSpeechTherapy);
+    console.log("Improvements (end):", improvements);
+    console.log("Page 20 Answer (end):", page20Answer);
+
+    // Сначала генерируем основной текст рекомендаций
+    let conclusionText = generateConclusionText(stepDifferencePage8, stepDifferencePage9, communication, ageInMonths);
+
+    conclusionText = conclusionText + "<br><br>";
+
+    document.getElementById('conclusion').innerHTML = conclusionText;
+
+    goToPage(25, false);
+
+// Очистка дублирующихся страниц из истории
+    const lastPage = 25; // Конечная целевая страница
+    while (pageHistory[pageHistory.length - 1] === lastPage) {
+        pageHistory.pop(); // Удаление лишних записей
+    }
+    console.log("answers object after calculateResults:", answers);
+    console.log("Exiting calculateResults");
+}
+
+
+function calculateStepDifference(stepMap, ageInMonths) {
+    let closestIndex = -1; // Позиция самой ближайшей строки к возрасту ребенка
+    let closestCheckedIndex = -1; // Позиция самой ближайшей отмеченной строки
+
+    console.log("Step map:", stepMap);
+    console.log("Child's age in months:", ageInMonths);
+
+    // Найти позицию самой ближайшей строки к возрасту ребенка
+    for (let i = 0; i < stepMap.length; i++) {
+        if (stepMap[i].age <= ageInMonths) {
+            closestIndex = i + 1; // Позиции начинаются с 1
+        }
+    }
+
+    console.log("Closest index:", closestIndex);
+
+    // Проверка, есть ли хотя бы один отмеченный чекбокс
+    const noCheckedCheckboxes = stepMap.every(step => !step.checked);
+    if (noCheckedCheckboxes) {
+        console.log("All checkboxes are unchecked.");
+        return 4; // Если все чекбоксы не отмечены, возвращаем 4
+    }
+
+    // Проверка: есть ли отмеченная строка с age > ageInMonths
+    for (let i = 0; i < stepMap.length; i++) {
+        if (stepMap[i].checked && stepMap[i].age > ageInMonths) {
+            console.log("Checked row with age greater than child's age found.");
+            return 0; // Если такая строка найдена, возвращаем 0
+        }
+    }
+
+    // Найти позицию самой ближайшей отмеченной строки
+    for (let i = 0; i < stepMap.length; i++) {
+        if (stepMap[i].checked && stepMap[i].age <= ageInMonths) {
+            closestCheckedIndex = i + 1; // Позиции начинаются с 1
+        }
+    }
+
+    console.log("Closest checked index:", closestCheckedIndex);
+
+    // Если нет ни одного отмеченного чекбокса или ближайшего индекса, возвращаем 4
+    if (closestCheckedIndex === -1) {
+        console.log("No checked checkboxes found.");
+        return 4;
+    }
+
+    if (closestIndex === -1) {
+        console.log("No closest index found.");
+        return 4;
+    }
+
+    // Рассчитываем разницу между индексами
+    let stepDifference = Math.abs(closestCheckedIndex - closestIndex);
+
+    console.log("Step difference:", stepDifference);
+    return stepDifference;
+}
+
+
+
+function generateConclusionText(stepDifferencePage8, stepDifferencePage9, communication, ageInMonths) {
+    const effectiveCommunication = (communication === "1" || communication === "2");
+    const noComplaints = (answers.complaints === "no");
+    const speechTherapist = (answers.speechTherapist !== "yes");
+    const Complaints = (answers.complaints !== "no");
+
+    console.log("Step Difference Page 8:", stepDifferencePage8);
+    console.log("Step Difference Page 9:", stepDifferencePage9);
+    console.log("Communication:", communication);
+    console.log("Age in Months:", ageInMonths);
+    console.log("Current Speech Therapy:", answers.currentSpeechTherapy || "no");
+    console.log("Improvements:", answers.improvements || "no");
+    console.log("Page 20 Answer:", answers.communication);
+    console.log("Answers for questions 11-16:", answers.understanding, answers.activeSpeechIssues, answers.pronunciationIssues, answers.voiceIssues, answers.stuttering);
+    console.log("Complaints:", answers.complaints);
+
+    let conclusionText = "";
+    let additionalRecommendations = "Рекомендуется консультация логопеда";
+
+    // Основное условие: развитие речи в пределах возрастной нормы
+    if ((ageInMonths <= 30 && stepDifferencePage8 <= 1 && stepDifferencePage9 <= 1 && effectiveCommunication && noComplaints) || 
+        (ageInMonths > 30 && stepDifferencePage8 === 0 && stepDifferencePage9 === 0 && effectiveCommunication && noComplaints)) {
+        conclusionText = "<div style='font-size: 24px; font-weight: bold;'>Развитие речи Вашего ребенка находится в пределах возрастной нормы.</div>";
+        additionalRecommendations = "Рекомендуем провести повторное анкетирование через " + calculateFollowUpMonths(ageInMonths) + " месяцев.";
+        console.log("Recommendation: Развитие речи Вашего ребенка находится в пределах возрастной нормы");
+        return conclusionText + "<br><br>" + additionalRecommendations;
+    }
+
+    // Новые проверки
+    console.log("Проверка дополнительных условий");
+    if ((ageInMonths <= 30 && stepDifferencePage8 <= 1 && stepDifferencePage9 <= 1 && communication === "1" && Complaints) || 
+        (ageInMonths > 30 && stepDifferencePage8 === 0 && stepDifferencePage9 === 0 && communication === "1" && Complaints)) {
+
+        // Проверка для детей младше 30 месяцев и старше 30 месяцев, когда все ответы - нет
+        if (answers.voiceIssues === "no" && answers.stuttering === "no" && answers.understanding === "no" && answers.activeSpeechIssues === "no" && answers.pronunciationIssues === "no") {
+            conclusionText = "<div style='font-size: 24px; font-weight: bold;'>Развитие речи Вашего ребенка находится в пределах возрастной нормы.</div>";
+            additionalRecommendations = "Рекомендуем провести повторное анкетирование через " + calculateFollowUpMonths(ageInMonths) + " месяцев.";
+            console.log("Recommendation: Развитие речи Вашего ребенка находится в пределах возрастной нормы");
+
+            // Специфические рекомендации
+            const recommendationsSet2 = new Set([
+                answers.reactsToSounds,
+                answers.whisperReaction,
+                answers.loudReaction,
+                answers.pointingGesture,
+            ].filter(Boolean));
+
+            const allRecommendations = Array.from(recommendationsSet2).join('<br>');
+
+            // Собираем текст для вывода рекомендаций
+            conclusionText += "<br><br>" + allRecommendations + "<br><br>" + additionalRecommendations;
+            return conclusionText;
+        }
+
+        // Проверка для детей младше 30 месяцев и старше 30 месяцев с answers.understanding === "yes" и/или answers.activeSpeechIssues === "yes"
+        if ((answers.understanding === "yes" || answers.activeSpeechIssues === "yes") && answers.voiceIssues === "no" && answers.stuttering === "no" && answers.pronunciationIssues === "no") {
+            conclusionText = "<div style='font-size: 24px; font-weight: bold;'>Развитие речи Вашего ребенка находится в пределах возрастной нормы.</div>";
+            additionalRecommendations = "Рекомендуем провести повторное анкетирование через " + calculateFollowUpMonths(ageInMonths) + " месяцев.";
+            console.log("Recommendation: Развитие речи Вашего ребенка находится в пределах возрастной нормы");
+
+            // Специфические рекомендации
+            const recommendationsSet2 = new Set([
+                answers.reactsToSounds,
+                answers.whisperReaction,
+                answers.loudReaction,
+                answers.pointingGesture,
+            ].filter(Boolean));
+
+            const allRecommendations = Array.from(recommendationsSet2).join('<br>');
+
+            // Собираем текст для вывода рекомендаций
+            conclusionText += "<br><br>" + allRecommendations + "<br><br>" + additionalRecommendations;
+            return conclusionText;
+        }
+
+        // Проверка для детей младше 30 месяцев и старше 30 месяцев с answers.voiceIssues === "yes" и/или answers.pronunciationIssues === "yes" и/или answers.stuttering === "yes"
+        if (answers.voiceIssues === "yes" || answers.pronunciationIssues === "yes" || answers.stuttering === "yes") {
+            conclusionText = "<div style='font-size: 24px; font-weight: bold;'>Развитие речи Вашего ребенка находится в пределах возрастной нормы.</div>";
+            //additionalRecommendations = "Рекомендуем провести консультацию логопеда и повторное анкетирование через " + calculateFollowUpMonths(ageInMonths) + " месяцев.";
+
+            // Добавляем дополнительные предложения, если ответы на вопросы "да"
+            if (answers.voiceIssues === "yes") {
+                conclusionText += "<br><div style='font-size: 24px; font-weight: bold;'>Вероятно расстройство голоса.</div>";
+            }
+            if (answers.pronunciationIssues === "yes") {
+                conclusionText += "<br><div style='font-size: 24px; font-weight: bold;'>Вероятно расстройство произносительной стороны речи.</div>";
+            }
+            if (answers.stuttering === "yes") {
+                conclusionText += "<br><div style='font-size: 24px; font-weight: bold;'>Вероятно расстройство темпо-ритмической стороны речи.</div>";
+            }
+
+// Проверка наличия логопеда
+    if (speechTherapist) {
+        additionalRecommendations = "Рекомендуется консультация логопеда и проведение повторного анкетирования через " + calculateFollowUpMonths(ageInMonths) + " месяцев.";
+	// Проверка улучшения
+        if (answers.improvements === "no" || answers.improvements === "slight") {
+            additionalRecommendations += "<br>Рекомендуется консультация невролога.";
+        }
+        if (answers.voiceIssues === "yes") {
+            additionalRecommendations += "<br>Рекомендуется консультация отоларинголога.";
+        }
+        if (answers.stuttering === "yes") {
+            additionalRecommendations += "<br>Рекомендуется консультация психолога.";
+        }
+    } else {
+        additionalRecommendations = "Продолжайте занятия с логопедом. Рекомендуем провести повторное анкетирование через " + calculateFollowUpMonths(ageInMonths) + " месяцев.";
+        // Проверка улучшения
+        if (answers.improvements === "no" || answers.improvements === "slight") {
+            additionalRecommendations += "<br>Рекомендуется консультация невролога.";
+        }
+        if (answers.voiceIssues === "yes") {
+            additionalRecommendations += "<br>Рекомендуется консультация отоларинголога.";
+        }
+        if (answers.stuttering === "yes") {
+            additionalRecommendations += "<br>Рекомендуется консультация психолога.";
+        }
+    }
+
+            console.log("Recommendation: Развитие в норме");
+
+            // Специфические рекомендации
+            const recommendationsSet2 = new Set([
+                answers.reactsToSounds,
+                answers.whisperReaction,
+                answers.loudReaction,
+                answers.pointingGesture,
+            ].filter(Boolean));
+
+            const allRecommendations = Array.from(recommendationsSet2).join('<br>');
+
+            // Собираем текст для вывода рекомендаций
+            conclusionText += "<br><br>" + allRecommendations + "<br><br>" + additionalRecommendations;
+            return conclusionText;
+        }
+    }
+
+    // Определение первой части предложения
+    let firstPart = "";
+    if (communication === "2") {
+        firstPart = "Вероятно легкое речевое расстройство";
+    } else if (communication === "3") {
+        firstPart = "Вероятно умеренно выраженное речевое расстройство";
+    } else if (communication === "4" || communication === "5") {
+        firstPart = "Вероятны выраженные речевые расстройства";
+    }
+
+    // Определение второй части предложения
+    let secondPart = "";
+    if (ageInMonths <= 30) {
+        if (stepDifferencePage8 === 0 || stepDifferencePage9 === 0 || stepDifferencePage8 === 1 || stepDifferencePage9 === 1) {
+            secondPart = ""; // Пустая строка, если отставание 0 или 1
+        } else if (stepDifferencePage8 >= 3 || stepDifferencePage9 >= 3) {
+            secondPart = "Вероятно отставание речевого развития";
+	} else if (stepDifferencePage8 >= 2 || stepDifferencePage9 >= 2) {
+            secondPart = "Вероятно незначительное отставание речевого развития";
+        }
+    } else if (ageInMonths > 30) {
+        if (stepDifferencePage8 === 0 && stepDifferencePage9 === 0) {
+            secondPart = ""; // Пустая строка, если отставание 0
+        } else if (stepDifferencePage8 >= 2 || stepDifferencePage9 >= 2) {
+            secondPart = "Вероятно отставание речевого развития";
+        } else if (stepDifferencePage8 <= 1 || stepDifferencePage9 <= 1) {
+            secondPart = "Вероятно незначительное отставание речевого развития";
+        }
+    }
+
+        // Определение итогового текста
+    if (firstPart && secondPart) {
+        if ((firstPart === "Вероятно легкое речевое расстройство" && secondPart === "Вероятно незначительное отставание речевого развития") || 
+            (firstPart === "Вероятны выраженные речевые расстройства" && secondPart === "Вероятно незначительное отставание речевого развития") ||
+            (firstPart === "Вероятны выраженные речевые расстройства" && secondPart === "Вероятно отставание речевого развития")) {
+            conclusionText = "<div style='font-size: 24px; font-weight: bold;'>" + firstPart + ".</div>";
+        } else {
+            conclusionText = "<div style='font-size: 24px; font-weight: bold;'>" + firstPart + " в сочетании с " + 
+                             (secondPart === "Вероятно незначительное отставание речевого развития" ? 
+                             "незначительным отставанием речевого развития" : "отставанием речевого развития") + ".</div>";
+        }
+    } else {
+        conclusionText = "<div style='font-size: 24px; font-weight: bold;'>" + (firstPart || secondPart) + ".</div>";
+    }
+
+    // Проверка наличия логопеда
+    if (speechTherapist) {
+        additionalRecommendations = "Рекомендуется консультация логопеда и проведение повторного анкетирования через " + calculateFollowUpMonths(ageInMonths) + " месяцев.";
+    } else {
+        additionalRecommendations = "Продолжайте занятия с логопедом. Рекомендуем провести повторное анкетирование через " + calculateFollowUpMonths(ageInMonths) + " месяцев.";
+        // Проверка улучшения
+        if (answers.improvements === "no" || answers.improvements === "slight") {
+            additionalRecommendations += "<br>Рекомендуется консультация невролога.";
+        }
+        if (answers.voiceIssues === "yes") {
+            additionalRecommendations += "<br>Рекомендуется консультация отоларинголога.";
+        }
+        if (answers.stuttering === "yes") {
+            additionalRecommendations += "<br>Рекомендуется консультация психолога.";
+        }
+    }
+
+    // Дополнительные рекомендации для "Вероятны выраженные речевые расстройства"
+    if (firstPart === "Вероятны выраженные речевые расстройства") {
+        const recommendationsSet = new Set();
+        let additionalRecommendation = ""; // Инициализируем пустую переменную для дополнительной рекомендации
+
+        if (answers.stuttering === "yes") {
+            recommendationsSet.add(", психолога");
+            recommendationsSet.add(", психиатра");
+            additionalRecommendation = "Целесообразно обследование в областном детском центре патологии речи или филиале «Детство» СОКПБ";
+        }
+        if (answers.understanding === "yes" && !answers.reactsToSounds && !answers.whisperReaction && !answers.loudReaction) {
+            recommendationsSet.add(", психолога");
+            recommendationsSet.add(", отоларинголога");
+            recommendationsSet.add(", сурдолога с проведением инструментального обследования слуха");
+            if (additionalRecommendation === "") {
+                additionalRecommendation = "Целесообразно обследование в областном детском центре патологии речи";
+            }
+        } else if (answers.understanding === "yes") {
+            recommendationsSet.add(", психолога");
+            recommendationsSet.add(", отоларинголога");
+            if (additionalRecommendation === "") {
+                additionalRecommendation = "Целесообразно обследование в областном детском центре патологии речи";
+            }
+        }
+        if (answers.activeSpeechIssues === "yes" || answers.pronunciationIssues === "yes") {
+            recommendationsSet.add(", невролога");
+            recommendationsSet.add(", психолога");
+            if (additionalRecommendation === "") {
+                additionalRecommendation = "Целесообразно обследование в областном детском центре патологии речи";
+            }
+        }
+        if (answers.voiceIssues === "yes") {
+            recommendationsSet.add(", невролога");
+            recommendationsSet.add(", отоларинголога");
+            if (additionalRecommendation === "") {
+                additionalRecommendation = "Целесообразно обследование в областном детском центре патологии речи";
+            }
+        }
+
+        additionalRecommendations = "Рекомендуется консультация логопеда" + Array.from(recommendationsSet).join("");
+        if (additionalRecommendation !== "") {
+            additionalRecommendations += "<br>" + additionalRecommendation;
+        }
+
+        console.log("Recommendation: Вероятны выраженные речевые расстройства");
+
+    } else if (firstPart === "Вероятно умеренно выраженное речевое расстройство") {
+        if (answers.improvements === "yes") {
+            additionalRecommendations = "Продолжайте занятия с логопедом. Рекомендуем провести повторное анкетирование через " + calculateFollowUpMonths(ageInMonths) + " месяцев.";
+		if (answers.voiceIssues === "yes") {
+            	additionalRecommendations += "<br>Рекомендуется консультация отоларинголога.";
+        	}
+        	if (answers.stuttering === "yes") {
+            additionalRecommendations += "<br>Рекомендуется консультация психолога.";
+        	}
+        } else {
+            const recommendationsSet = new Set();
+            if (answers.understanding === "yes" && !answers.reactsToSounds && !answers.whisperReaction && !answers.loudReaction) {
+                recommendationsSet.add(", психолога");
+                recommendationsSet.add(", отоларинголога");
+                recommendationsSet.add(" – сурдолога с проведением инструментального обследования слуха");
+            } else if (answers.understanding === "yes") {
+                recommendationsSet.add(", психолога");
+                recommendationsSet.add(", отоларинголога");
+            }
+            if (answers.activeSpeechIssues === "yes" || answers.pronunciationIssues === "yes") {
+                recommendationsSet.add(", невролога");
+            }
+            if (answers.voiceIssues === "yes") {
+                recommendationsSet.add(", отоларинголога");
+            }
+            if (answers.stuttering === "yes") {
+                recommendationsSet.add(", невролога");
+                recommendationsSet.add(", психолога");
+            }
+            additionalRecommendations = "Рекомендуется консультация логопеда" + Array.from(recommendationsSet).join("");
+        }
+        console.log("Recommendation: Вероятно умеренно выраженное речевое расстройство");
+    }
+
+    // Проверка для "Вероятно отставание речевого развития" с первой частью "Вероятно легкое речевое расстройство"
+    if (secondPart === "Вероятно отставание речевого развития" && firstPart === "Вероятно легкое речевое расстройство") {
+        additionalRecommendations = "Рекомендуется консультация логопеда, отоларинголога – сурдолога с проведением инструментального обследования слуха, консультация психиатра.";
+    }
+
+    console.log("Recommendation:", conclusionText);
+
+    // Специфические рекомендации
+    const recommendationsSet2 = new Set([
+        answers.reactsToSounds,
+        answers.whisperReaction,
+        answers.loudReaction,
+        answers.pointingGesture,
+    ].filter(Boolean));
+
+    const allRecommendations = Array.from(recommendationsSet2).join('<br>');
+
+    // Собираем текст для вывода рекомендаций
+    conclusionText += "<br><br>" + allRecommendations + "<br><br>" + additionalRecommendations;
+    return conclusionText;
+}
+
+
+function calculateFollowUpMonths(ageInMonths) {
+    if (ageInMonths <= 12) {
+        return 1;
+    } else if (ageInMonths <= 24) {
+        return 3;
+    } else if (ageInMonths <= 36) {
+        return 6;
+    } else {
+        return 12;
+    }
+}
+
+function resetForm() {
+    location.reload(); // Перезагружает страницу
+}
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const today = new Date();
+    const day = String(today.getDate()).padStart(2, '0');
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const year = today.getFullYear();
+    document.getElementById('surveyDate').value = `${year}-${month}-${day}`;
+    goToPage(1);
+});
+
+</script>
+
+</body>
+</html>
